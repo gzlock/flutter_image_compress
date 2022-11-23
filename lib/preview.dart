@@ -84,6 +84,7 @@ class PreviewImage extends StatelessWidget {
           bottom: 0,
           child: Container(
             color: Colors.white.withOpacity(0.7),
+            padding: EdgeInsets.all(4),
             child: Obx(
               () => Text(
                   '原始：$width x $height, ${filesize(input.rawBytes.length)}\n'

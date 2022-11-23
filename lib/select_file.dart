@@ -4,13 +4,9 @@ import 'dart:ui' as ui;
 import 'package:file_selector/file_selector.dart';
 import 'package:flutter/material.dart';
 
-const XTypeGroup jpgsTypeGroup = XTypeGroup(
-  label: 'JPEGs',
-  extensions: <String>['jpg', 'jpeg'],
-);
-const XTypeGroup pngTypeGroup = XTypeGroup(
-  label: 'PNGs',
-  extensions: <String>['png'],
+const XTypeGroup imageGroup = XTypeGroup(
+  label: '图片',
+  extensions: <String>['jpg', 'jpeg', 'png'],
 );
 
 class AddImage extends StatelessWidget {
@@ -25,8 +21,7 @@ class AddImage extends StatelessWidget {
 
   void _select() async {
     final List<XFile> files = await openFiles(acceptedTypeGroups: <XTypeGroup>[
-      jpgsTypeGroup,
-      pngTypeGroup,
+      imageGroup,
     ]);
     listener(await Future.wait(files.map((f) async {
       final data = await f.readAsBytes();
