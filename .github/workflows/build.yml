@@ -15,6 +15,7 @@ jobs:
           channel: 'stable'
       - run: flutter config --enable-windows-desktop
       - run: flutter build windows
+      - run: flutter build apk
       - name: Zip build files
         run: 7z a ./dist/windows.zip ./build/windows/runner/Release/*
       - name: Create Release
@@ -24,3 +25,4 @@ jobs:
           body_path: ./CHANGELOG.txt
           files: |
             ./dist/windows.zip
+            ./build/app/outputs/flutter-apk/app-release.apk

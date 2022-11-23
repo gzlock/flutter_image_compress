@@ -1,4 +1,4 @@
-package com.gzlock.flutter_compress_image.flutter_compress_image
+package com.gzlock.flutter_image_compress
 
 import io.flutter.embedding.android.FlutterActivity
 

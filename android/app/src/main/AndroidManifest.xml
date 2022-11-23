@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.gzlock.flutter_compress_image.flutter_compress_image">
+    package="com.gzlock.flutter_image_compress">
    <application
-        android:label="flutter_compress_image"
+        android:label="批量图片压缩"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
