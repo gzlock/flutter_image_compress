@@ -205,20 +205,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.2"
-  image_compression:
-    dependency: transitive
-    description:
-      name: image_compression
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.3"
-  image_compression_flutter:
-    dependency: "direct main"
-    description:
-      name: image_compression_flutter
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   js:
     dependency: transitive
     description:
@@ -254,13 +240,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  mime:
-    dependency: transitive
-    description:
-      name: mime
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.2"
   oktoast:
     dependency: "direct main"
     description:

@@ -4,7 +4,6 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
-  image_compression_flutter
   screen_retriever
   url_launcher_windows
   window_manager
