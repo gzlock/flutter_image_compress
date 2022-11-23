@@ -31,7 +31,7 @@ class PreviewImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('build ${input.path}');
+    debugPrint('build ${input.path}');
     final width = input.image.width, height = input.image.height;
     final scaledWidth = (width * scale).toInt(),
         scaledHeight = (height * scale).toInt();
@@ -46,7 +46,7 @@ class PreviewImage extends StatelessWidget {
       );
       final previewPath = path.join(tempPath, generateMd5(input.path));
       previewSize = resizedBytes.length;
-      print('临时路径 $previewPath');
+      debugPrint('临时路径 $previewPath');
       final file = File(previewPath);
       await file.writeAsBytes(resizedBytes);
       preview.value = file;

@@ -23,7 +23,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   tempPath = (await getTemporaryDirectory()).path;
-  print('临时路径 $tempPath');
+  debugPrint('临时路径 $tempPath');
   if (GetPlatform.isDesktop) {
     outputQueue = Queue(parallel: Platform.numberOfProcessors);
     await windowManager.ensureInitialized();
@@ -153,7 +153,7 @@ class MyHomePage extends StatelessWidget {
       // Operation was canceled by the user.
       return;
     }
-    images.values.forEach((file) {
+    for (var file in images.values) {
       outputQueue.add(() async {
         final scaledWidth = (file.image.width * scale.value).toInt(),
             scaledHeight = (file.image.height * scale.value).toInt();
@@ -169,7 +169,7 @@ class MyHomePage extends StatelessWidget {
         final outputFile = File(outputPath);
         outputFile.writeAsBytes(compressed);
       });
-    });
+    }
     final toast = ProcessingToastWidget.showQueue('正在输出文件', outputQueue);
     await outputQueue.whenComplete();
     toast.dismiss();
