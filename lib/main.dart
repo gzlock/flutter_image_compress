@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dynamic_parallel_queue/dynamic_parallel_queue.dart';
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
@@ -10,7 +10,7 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:window_manager/window_manager.dart';
 
-import 'preview.dart';
+import 'image.dart';
 import 'select_file.dart';
 import 'toast.dart';
 
@@ -126,7 +126,7 @@ class MyHomePage extends StatelessWidget {
         ),
         Obx(() => SliverGrid(
               delegate: SliverChildBuilderDelegate(
-                (_, i) => Obx(() => PreviewImage(
+                (_, i) => Obx(() => ImageWidget(
                       key: Key(images.values.elementAt(i).path),
                       quality: quality.value,
                       scale: scale.value,
@@ -136,7 +136,7 @@ class MyHomePage extends StatelessWidget {
                 childCount: images.length,
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
+                crossAxisCount: GetPlatform.isDesktop ? 3 : 2,
                 childAspectRatio: 1.2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
@@ -147,10 +147,11 @@ class MyHomePage extends StatelessWidget {
   }
 
   void _output() async {
+    if (images.isEmpty) return;
     outputQueue.clear();
-    final String? directoryPath = await getDirectoryPath();
+    final String? directoryPath =
+        await FilePicker.platform.getDirectoryPath(dialogTitle: '保存到哪里？');
     if (directoryPath == null) {
-      // Operation was canceled by the user.
       return;
     }
     for (var file in images.values) {

@@ -1,13 +1,9 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:file_selector/file_selector.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-
-const XTypeGroup imageGroup = XTypeGroup(
-  label: '图片',
-  extensions: <String>['jpg', 'jpeg', 'png'],
-);
 
 class AddImage extends StatelessWidget {
   final void Function(List<ImageFile> files) listener;
@@ -20,15 +16,19 @@ class AddImage extends StatelessWidget {
   }
 
   void _select() async {
-    final List<XFile> files = await openFiles(acceptedTypeGroups: <XTypeGroup>[
-      imageGroup,
-    ]);
-    listener(await Future.wait(files.map((f) async {
-      final data = await f.readAsBytes();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'jpeg', 'png'],
+    );
+    if (result == null) return;
+
+    listener(await Future.wait(result.files.map((f) async {
+      final file = File(f.path!);
+      final data = await file.readAsBytes();
       ui.Codec codec = await ui.instantiateImageCodec(data);
       ui.FrameInfo frame = await codec.getNextFrame();
       return ImageFile(
-        path: f.path,
+        path: f.path!,
         rawBytes: data,
         image: frame.image,
       );

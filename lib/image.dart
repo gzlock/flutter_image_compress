@@ -8,20 +8,21 @@ import 'package:oktoast/oktoast.dart';
 import 'package:path/path.dart' as path;
 import 'package:url_launcher/url_launcher.dart';
 
+import 'image_preview.dart';
 import 'main.dart';
 import 'md5.dart';
 import 'select_file.dart';
 
 const Map<String, File> caches = {};
 
-class PreviewImage extends StatelessWidget {
+class ImageWidget extends StatelessWidget {
   final double quality;
   final double scale;
   final ImageFile input;
   final Rxn<File> preview = Rxn();
   final void Function(ImageFile file)? removeListener;
 
-  PreviewImage({
+  ImageWidget({
     super.key,
     required this.quality,
     required this.scale,
@@ -64,7 +65,18 @@ class PreviewImage extends StatelessWidget {
             if (preview.value == null) {
               showToast('请等待生成预览');
             } else {
-              launchUrl(Uri.file(preview.value!.path));
+              if (GetPlatform.isDesktop) {
+                launchUrl(Uri.file(preview.value!.path),
+                    mode: LaunchMode.inAppWebView);
+              } else if (GetPlatform.isAndroid) {
+                Get.to(ImagePreview(
+                  file: preview.value!,
+                  scale: scale,
+                  quality: quality,
+                  width: scaledWidth,
+                  height: scaledHeight,
+                ));
+              }
             }
           },
         ),
